@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { Idea, ImprovedPrompt } from '../types/prompt';
 import type { IPromptService } from './IPromptService';
 
-const API_BASE_URL = 'https://prompt-enhancer-aladdin-elshamys-projects.vercel.app/api';
+const API_BASE_URL = 'https://prompt-enhancer-api.vercel.app/api';
 
 class PromptService implements IPromptService {
   async transform(idea: Idea): Promise<ImprovedPrompt> {
