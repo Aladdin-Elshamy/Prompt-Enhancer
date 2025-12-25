@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import appRoutes from './routes/appRoutes.js';
+import appRoutes from '../routes/appRoutes.js';
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
-app.use('/api', appRoutes);
+app.use('/', appRoutes);
 app.use((req, res) => {
     res.status(404).json({ error: 'Path Not Found' });
 });
