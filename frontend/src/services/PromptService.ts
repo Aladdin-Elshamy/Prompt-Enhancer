@@ -3,12 +3,12 @@ import type { Idea, ImprovedPrompt, ApiError } from '../types/prompt';
 import type { IPromptService } from './IPromptService';
 import { handleToast } from '../functions/handleToast';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'https://prompt-enhancer-api.vercel.app/api';
 
 export class PromptService implements IPromptService {
   async transform(idea: Idea): Promise<ImprovedPrompt> {
     try {
-      const response = await axios.post(`${API_BASE_URL}/transsform`, {
+      const response = await axios.post(`${API_BASE_URL}/transform`, {
         idea
       });
 
