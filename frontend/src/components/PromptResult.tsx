@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check } from 'lucide-react';
 import type { ImprovedPrompt } from '../types/prompt';
+import { useCopy } from '../hooks/useCopy';
 
 interface PromptResultProps {
     prompt: ImprovedPrompt;
@@ -11,10 +12,7 @@ export const PromptResult: React.FC<PromptResultProps> = ({
     prompt,
     onReset,
 }) => {
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(prompt.content);
-    };
-    const [isCopied, setIsCopied] = React.useState(false);
+    const { isCopied, copyToClipboard } = useCopy();
     return (
         <div className="space-y-6 animate-fadeIn">
             <div className="bg-white border-2 border-emerald-200 rounded-2xl p-8 shadow-lg">
@@ -25,9 +23,7 @@ export const PromptResult: React.FC<PromptResultProps> = ({
                     </div>
                     <button
                         onClick={() => {
-                            copyToClipboard();
-                            setIsCopied(true);
-                            setTimeout(() => setIsCopied(false), 2000);
+                            copyToClipboard(prompt.content);
                         }}
                         className="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 transition-colors shadow-sm"
                     >
@@ -58,14 +54,11 @@ export const PromptResult: React.FC<PromptResultProps> = ({
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                     onClick={onReset}
-                    className="px-6 py-3 border-2 border-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 transition-all"
+                    className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-200"
                 >
                     Try Another Idea
                 </button>
 
-                <button className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-200">
-                    Use This Prompt
-                </button>
             </div>
         </div>
     );
