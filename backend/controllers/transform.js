@@ -6,7 +6,7 @@ dotenv.config();
 
 const token = process.env["GITHUB_TOKEN"];
 const endpoint = "https://models.github.ai/inference";
-const modelName = "openai/gpt-4o"; // The user mentioned gpt-5 but standard is often 4o or similar available models. I'll stick to a known one if 5 is not out yet or use what's expected.
+const modelName = "openai/gpt-4o";
 
 export const handleTransform = async (req, res) => {
     const { idea } = req.body;
@@ -24,7 +24,7 @@ export const handleTransform = async (req, res) => {
         const response = await client.path("/chat/completions").post({
             body: {
                 messages: [
-                    { role: "system", content: "You are a professional prompt engineer. Improve the following user idea into a clear, concise, and effective prompt for an LLM." },
+                    { role: "system", content: "You are a professional prompt engineer. Improve the following user idea into a clear, concise, and effective prompt for an LLM. note if the user didn't provide any idea, like saying hi or some writing numbers something like that greet them and ask them to write an idea to enahnce" },
                     { role: "user", content: idea }
                 ],
                 model: modelName
@@ -36,10 +36,7 @@ export const handleTransform = async (req, res) => {
         }
 
         const improvedContent = response.body.choices[0].message.content;
-        res.setHeader('Access-Control-Allow-Credentials', true);
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-        res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,PATCH,OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization');
+
         res.json({
             id: Date.now().toString(),
             originalIdea: idea,

@@ -5,9 +5,7 @@ import { PromptResult } from '../components/PromptResult';
 import { Features } from '../components/Features';
 import { Layout } from '../components/common/Layout';
 import { usePromptTransformer } from '../hooks/usePromptTransformer';
-import { PromptService } from '../services/PromptService';
 
-const promptService = new PromptService();
 
 export const HomePage: React.FC = () => {
     const {
@@ -17,7 +15,7 @@ export const HomePage: React.FC = () => {
         improvedPrompt,
         transformIdea,
         reset,
-    } = usePromptTransformer(promptService);
+    } = usePromptTransformer();
 
     return (
         <Layout>

@@ -1,8 +1,10 @@
 import { useState, useCallback } from 'react';
-import type { IPromptService } from '../services/IPromptService';
-import type { Idea, ImprovedPrompt } from '../types/prompt';
+import type { ApiError, Idea, ImprovedPrompt } from '../types/prompt';
+import { promptService } from '../services/PromptService';
+import { handleToast } from '../functions/handleToast';
+import type { AxiosError } from 'axios';
 
-export const usePromptTransformer = (promptService: IPromptService) => {
+export const usePromptTransformer = () => {
   const [idea, setIdea] = useState<Idea>('');
   const [isImproving, setIsImproving] = useState(false);
   const [improvedPrompt, setImprovedPrompt] = useState<ImprovedPrompt | null>(null);
@@ -16,8 +18,9 @@ export const usePromptTransformer = (promptService: IPromptService) => {
       const result = await promptService.transform(idea);
       setImprovedPrompt(result);
     } catch (error) {
-      console.error('Failed to transform idea:', error);
-      // Handle error state if needed
+      const axiosError = error as AxiosError<ApiError>;
+      console.error('Faild to transform idea:', error);
+      handleToast(axiosError.response?.data?.error || "An unexpected error occurred", "error");
     } finally {
       setIsImproving(false);
     }

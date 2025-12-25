@@ -7,15 +7,8 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://your-frontend.vercel.app'
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: false
+    origin:'*'
 }));
-app.options('*', cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
