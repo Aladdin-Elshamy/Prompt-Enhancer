@@ -36,7 +36,10 @@ export const handleTransform = async (req, res) => {
         }
 
         const improvedContent = response.body.choices[0].message.content;
-
+        res.setHeader('Access-Control-Allow-Credentials', true);
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+        res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,PATCH,OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization');
         res.json({
             id: Date.now().toString(),
             originalIdea: idea,
