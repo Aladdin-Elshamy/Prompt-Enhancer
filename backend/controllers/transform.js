@@ -24,7 +24,22 @@ export const handleTransform = async (req, res) => {
         const response = await client.path("/chat/completions").post({
             body: {
                 messages: [
-                    { role: "system", content: "You are a professional prompt engineer. Improve the following user idea into a clear, concise, and effective prompt for an LLM. note if the user didn't provide any idea, like saying hi or some writing numbers something like that greet them and ask them to write an idea to enahnce" },
+                    { role: "system", content: `You are a professional prompt engineer. Your task is to improve prompts.
+
+                        RULES:
+                        1. If user provides a prompt idea or task description, IMMEDIATELY transform it into an enhanced, detailed prompt
+                        2. Do NOT ask clarifying questions - make reasonable assumptions
+                        3. Do NOT chat or have conversations
+                        4. Output ONLY the improved prompt, nothing else
+                        5. If input is a greeting (hi, hello) or nonsense, respond with: "Please provide a prompt idea or task description that you'd like me to enhance."
+
+                        ENHANCEMENT GUIDELINES:
+                        - Make prompts clear, specific, and actionable
+                        - Add relevant context and constraints
+                        - Structure complex prompts with sections
+                        - Include output format specifications when helpful
+
+                        Now enhance this prompt idea:` },
                     { role: "user", content: idea }
                 ],
                 model: modelName

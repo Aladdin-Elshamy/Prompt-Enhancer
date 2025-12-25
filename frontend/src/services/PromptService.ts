@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { Idea, ImprovedPrompt } from '../types/prompt';
 import type { IPromptService } from './IPromptService';
 
-const API_BASE_URL = 'https://prompt-enhancer-api.vercel.app/api';
+const API_BASE_URL = 'http://localhost:3001/api';
 
 class PromptService implements IPromptService {
   async transform(idea: Idea): Promise<ImprovedPrompt> {
